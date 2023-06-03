@@ -1,0 +1,44 @@
+<p>login works!</p>
+
+<div class="conteiner col-12 d-flex">
+  <div class="left-login col-md-7 d-md-flex d-sm-none">
+      <h1>Faça login para <br> Entrar no nosso sistema</h1>
+      <img src="../../../assets/img/authentication-animate.svg" alt="img" class="left-image">
+  </div>
+  <div class="right-login col-md-4 px-5 col-sm-12">
+      <div id="b_login">
+          <h2 class="h2-1 d-initial">Login</h2>
+
+          <form class="form-1 d-initial">
+              <div class="usuario-senha">
+                  <div class="col-md-12">
+                      <div>
+                          <input type="email" name="email" class="form-control w-100" placeholder="email" [(ngModel)]="email">
+                      </div>
+                      <div class="mensagem-erro" >
+                          Campo obrigatório!!
+                      </div>
+                      <div class="mensagem-erro" >
+                          Usuário não encontrado!!
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div>
+                          <input type="password" name="senha" class="form-control w-100" aria-describedby="passwordHelpBlock" id="password" placeholder="Senha" [(ngModel)]="password">
+                      </div>
+                      <div class="mensagem-erro" >
+                          Campo obrigatório!!
+                      </div>
+                  </div>
+              </div>
+              <div id="login">
+                  <button  type="button" class="btn btn-primary btn-lg JUS w-100 botao-loguin" (click)="login()">Login</button>
+              </div>
+          </form>
+
+          <div class="cadastro">
+              <button type="button"  class="btn btn-primary btn-lg JUS botao-cadastro"><a routerLink="/register">Criar conta</a> </button>
+          </div>
+      </div>
+  </div>
+</div>
