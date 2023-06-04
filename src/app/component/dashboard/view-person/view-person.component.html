@@ -1,1 +1,72 @@
-<p>view-person works!</p>
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>Visualizar dados</b></h4>
+          </div>
+          <div class="col-sm-6">
+            <a href="#" routerLink="/dashboard" class="btn btn-success back"><i class="fas fa-arrow-circle-left"></i>Voltar</a>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover table-bordered table-content">
+        <tbody>
+          <tr>
+            <td><label><b>CPF</b></label></td>
+            <td><span>{{ personDetails.cpf }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Nome</b></label> </td>
+            <td><span>{{ personDetails.nome }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Data de nascimento</b></label></td>
+            <td> <span>{{ personDetails.nascimento }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Sexo</b></label></td>
+            <td><span>{{ personDetails.sexo }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Email</b></label></td>
+            <td> <span>{{ personDetails.email }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Celular</b></label></td>
+            <td> <span>{{ personDetails.celular }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>CEP</b></label></td>
+            <td> <span>{{ personDetails.cep }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Logradouro</b></label></td>
+            <td> <span>{{ personDetails.logradouro }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Número</b></label></td>
+            <td> <span>{{ personDetails.numero }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Complemento</b></label></td>
+            <td> <span>{{ personDetails.complemento }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Bairro</b></label></td>
+            <td> <span>{{ personDetails.bairro }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Município</b></label></td>
+            <td> <span>{{ personDetails.cidade }}</span></td>
+          </tr>
+          <tr>
+            <td> <label><b>Estado</b></label></td>
+            <td> <span>{{ personDetails.estado }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

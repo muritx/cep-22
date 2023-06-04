@@ -9,6 +9,7 @@ import { PersonService } from 'src/app/services/person-service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
   peopleList: any = [];
 
   constructor(private router: Router, private personService: PersonService) { }
@@ -37,6 +38,11 @@ export class DashboardComponent implements OnInit {
 
   addPerson() {
     this.router.navigate(['create']);
+
+  }
+
+  deletePerson(id: string) {
+    this.personService.delete(id);
 
   }
 

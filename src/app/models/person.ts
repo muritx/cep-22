@@ -17,7 +17,7 @@ export class Person {
   numero?: number;
   complemento?: string;
   bairro?: string;
-  municipio?: string;
+  cidade?: string;
   estado?: string;
-  
+
 }

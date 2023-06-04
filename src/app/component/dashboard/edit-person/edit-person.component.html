@@ -1,1 +1,220 @@
-<p>edit-person works!</p>
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>Editar cadastro</b></h4>
+          </div>
+          <div class="col-sm-6">
+            <a href="#" routerLink="/dashboard" class="btn btn-success back"
+              ><i class="fas fa-arrow-circle-left"></i> Voltar</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <form #Person="ngForm" class="row g-3">
+        <div class="col-md-2">
+          <label for="cpf" class="p-t-b-10"
+            >CPF<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="cpf"
+            required
+            maxlength="255"
+            [(ngModel)]="editingPerson.cpf"
+            name="cpf"
+            #cpf="ngModel"
+          />
+        </div>
+
+        <div class="col-md-10">
+          <label for="Nome" class="p-t-b-10"
+            >Nome completo<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="nome"
+            required
+            maxlength="255"
+            [(ngModel)]="editingPerson.nome"
+            name="nome"
+            #nome="ngModel"
+          />
+        </div>
+        <!-- PRECISA CONSERTAR FORMATO DE DATA -->
+        <div class="col-md-6">
+          <label for="data-nascimento" class="p-t-b-10"
+            >Data de nascimento<span class="requiredStar">*</span></label
+          >
+          <input
+            id="datepicker"
+            class="form-control"
+            [(ngModel)]="editingPerson.nascimento"
+            #nascimento="ngModel"
+            name="nascimento"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="sexo" class="p-t-b-10"
+            >Sexo<span class="requiredStar">*</span></label
+          >
+          <select
+            id="sexo"
+            class="form-select"
+            [(ngModel)]="editingPerson.sexo"
+            #sexo="ngModel"
+            name="sexo"
+          >
+            <option selected>Selecionar...</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+            <option>Outros</option>
+          </select>
+        </div>
+        <div class="col-md-8">
+          <label for="email" class="p-t-b-10"
+            >E-mail<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            [(ngModel)]="editingPerson.email"
+            #email="ngModel"
+            name="email"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="celular" class="p-t-b-10"
+            >Celular<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="celular"
+            class="form-control"
+            [(ngModel)]="editingPerson.celular"
+            #celular="ngModel"
+            name="celular"
+          />
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-6">
+            <label for="cep" class="p-t-b-10"
+              >CEP<span class="requiredStar">*</span></label
+            >
+            <input
+              type="text"
+              id="cep"
+              class="form-control"
+              [(ngModel)]="editingPerson.cep"
+              #cep="ngModel"
+              name="cep"
+            />
+          </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Não sei meu CEP
+        </button>
+
+        <div class="col-md-8">
+          <label for="logradouro" class="p-t-b-10"
+            >Logradouro<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="logradouro"
+            class="form-control"
+            [(ngModel)]="editingPerson.logradouro"
+            #logradouro="ngModel"
+            name="logradouro"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="numero" class="p-t-b-10"
+            >Número<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="numero"
+            class="form-control"
+            [(ngModel)]="editingPerson.numero"
+            #numero="ngModel"
+            name="numero"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="complemento" class="p-t-b-10">Complemento</label>
+          <input
+            type="text"
+            id="complemento"
+            class="form-control"
+            [(ngModel)]="editingPerson.complemento"
+            #complemento="ngModel"
+            name="complemento"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="bairro" class="p-t-b-10"
+            >Bairro<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="bairro"
+            class="form-control"
+            [(ngModel)]="editingPerson.bairro"
+            #bairro="ngModel"
+            name="bairro"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="cidade-res" class="p-t-b-10"
+            >Cidade<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="cidade-res"
+            class="form-control"
+            [(ngModel)]="editingPerson.cidade"
+            #cidade="ngModel"
+            name="cidade-res"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="estado-res" class="p-t-b-10"
+            >Estado<span class="requiredStar">*</span></label
+          >
+          <select
+            id="estado-res"
+            class="form-select"
+            (change)="carregarCidades()"
+            [(ngModel)]="editingPerson.estado"
+            #estado="ngModel"
+            name="estado-res"
+          >
+            <option value="">Selecione o Estado</option>
+          </select>
+        </div>
+        <div class="table-footer">
+          <button
+            class="btn btn-success"
+            (click)="editPerson(Person.form.valid)"
+          >
+            Atualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

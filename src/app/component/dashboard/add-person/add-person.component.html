@@ -1,1 +1,280 @@
-<p>add-person works!</p>
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>Cadastrar pessoa</b></h4>
+          </div>
+          <div class="col-sm-6">
+            <a href="#" routerLink="/dashboard" class="btn btn-success back"
+              ><i class="fas fa-arrow-circle-left"></i> Voltar</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <form #Person="ngForm" class="row g-3">
+        <div class="col-md-2">
+          <label for="cpf" class="p-t-b-10"
+            >CPF<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="cpf"
+            required
+            maxlength="255"
+            [(ngModel)]="person.cpf"
+            name="cpf"
+            #cpf="ngModel"
+          />
+        </div>
+
+        <div class="col-md-10">
+          <label for="Nome" class="p-t-b-10"
+            >Nome completo<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="nome"
+            required
+            maxlength="255"
+            [(ngModel)]="person.nome"
+            name="nome"
+            #nome="ngModel"
+          />
+        </div>
+        <!-- PRECISA CONSERTAR FORMATO DE DATA -->
+        <div class="col-md-6">
+          <label for="data-nascimento" class="p-t-b-10"
+            >Data de nascimento<span class="requiredStar">*</span></label
+          >
+          <input
+            id="datepicker"
+            class="form-control"
+            [(ngModel)]="person.nascimento"
+            #nascimento="ngModel"
+            name="nascimento"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="sexo" class="p-t-b-10"
+            >Sexo<span class="requiredStar">*</span></label
+          >
+          <select
+            id="sexo"
+            class="form-select"
+            [(ngModel)]="person.sexo"
+            #sexo="ngModel"
+            name="sexo"
+          >
+            <option selected>Selecionar...</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+            <option>Outros</option>
+          </select>
+        </div>
+        <div class="col-md-8">
+          <label for="email" class="p-t-b-10"
+            >E-mail<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            [(ngModel)]="person.email"
+            #email="ngModel"
+            name="email"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="celular" class="p-t-b-10"
+            >Celular<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="celular"
+            class="form-control"
+            [(ngModel)]="person.celular"
+            #celular="ngModel"
+            name="celular"
+          />
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-4">
+            <label for="cep" class="p-t-b-10"
+              >CEP<span class="requiredStar">*</span></label
+            >
+            <input
+              type="text"
+              id="cep"
+              class="form-control"
+              [(ngModel)]="person.cep"
+              #cep="ngModel"
+              name="cep"
+            />
+          </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Não sei meu CEP
+        </button>
+
+        <div class="col-md-8">
+          <label for="logradouro" class="p-t-b-10"
+            >Logradouro<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="logradouro"
+            class="form-control"
+            [(ngModel)]="person.logradouro"
+            #logradouro="ngModel"
+            name="logradouro"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="numero" class="p-t-b-10"
+            >Número<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="numero"
+            class="form-control"
+            [(ngModel)]="person.numero"
+            #numero="ngModel"
+            name="numero"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="complemento" class="p-t-b-10">Complemento</label>
+          <input
+            type="text"
+            id="complemento"
+            class="form-control"
+            [(ngModel)]="person.complemento"
+            #complemento="ngModel"
+            name="complemento"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="bairro" class="p-t-b-10"
+            >Bairro<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="bairro"
+            class="form-control"
+            [(ngModel)]="person.bairro"
+            #bairro="ngModel"
+            name="bairro"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="cidade-res" class="p-t-b-10"
+            >Cidade<span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            id="cidade-res"
+            class="form-control"
+            [(ngModel)]="person.cidade"
+            #cidade="ngModel"
+            name="cidade-res"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="estado-res" class="p-t-b-10"
+            >Estado<span class="requiredStar">*</span></label
+          >
+          <select
+            id="estado-res"
+            class="form-select"
+            (change)="carregarCidades()"
+            [(ngModel)]="person.estado"
+            #estado="ngModel"
+            name="estado-res"
+          >
+            <option value="">Selecione o Estado</option>
+          </select>
+        </div>
+
+        <div class="table-footer">
+          <button
+            class="btn btn-success"
+            (click)="addPerson(Person.form.valid)"
+          >
+            Cadastrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Procurar pelo nome da rua
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <label for="estado" class="form-label">Estado</label>
+          <select id="estado" class="form-select" (change)="carregarCidades()">
+            <option value="">Selecione o Estado</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label for="cidade" class="form-label">Cidade</label>
+          <select id="cidade" class="form-control">
+            <option value="">Aguardando Estado</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label for="rua" class="form-label">Rua:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="rua"
+            (blur)="carregarRuas()"
+          />
+        </div>
+
+        <ul id="lista-ruas"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

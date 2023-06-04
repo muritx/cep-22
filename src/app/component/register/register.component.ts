@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth-service';
 
 @Component({
@@ -12,7 +13,7 @@ export class RegisterComponent {
 
   message: string = '';
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   register() {
     if(this.email == '') {
@@ -31,6 +32,10 @@ export class RegisterComponent {
     this.email = '';
     this.password = '';
 
+  }
+
+  goBack() {
+    this.router.navigate(['/..']);
   }
 
 }

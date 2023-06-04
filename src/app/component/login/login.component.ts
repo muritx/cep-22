@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth-service';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent {
 
   message: string = '';
 
-  constructor(private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   login() {
     if(this.email == '') {
@@ -30,6 +31,11 @@ export class LoginComponent {
     this.auth.login(this.email, this.password);
     this.email = '';
     this.password = '';
+
+  }
+
+  register() {
+    this.router.navigate(['/register']);
 
   }
 
