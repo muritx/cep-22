@@ -9,12 +9,12 @@ export class Person {
 
   //Dados de contato
   email?: string;
-  celular?: number;
+  celular?: string;
 
   //Endereço
-  cep?: number;
+  cep?: string;
   logradouro?: string;
-  numero?: number;
+  numero?: string;
   complemento?: string;
   bairro?: string;
   cidade?: string;

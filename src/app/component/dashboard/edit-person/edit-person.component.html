@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-6">
             <a href="#" routerLink="/dashboard" class="btn btn-success back"
-              ><i class="fas fa-arrow-circle-left"></i> Voltar</a
+              ><i class="fa fa-arrow-circle-left"></i> Voltar</a
             >
           </div>
         </div>
@@ -21,18 +21,28 @@
           >
           <input
             type="text"
-            class="form-control"
             id="cpf"
-            required
-            maxlength="255"
+            class="form-control"
             [(ngModel)]="editingPerson.cpf"
             name="cpf"
             #cpf="ngModel"
+            required
+            minlength="11"
+            (input)="validateCPF(cpf.value)"
           />
+          <div
+            *ngIf="isSubmitted && !validCPF"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!cpf.errors?.['required']">CPF é obrigatório</div>
+            <div [hidden]="!cpf.errors?.['minlength'] || !validCPF">
+              CPF inválido
+            </div>
+          </div>
         </div>
 
         <div class="col-md-10">
-          <label for="Nome" class="p-t-b-10"
+          <label for="nome" class="p-t-b-10"
             >Nome completo<span class="requiredStar">*</span></label
           >
           <input
@@ -40,13 +50,24 @@
             class="form-control"
             id="nome"
             required
-            maxlength="255"
             [(ngModel)]="editingPerson.nome"
             name="nome"
             #nome="ngModel"
+            [ngClass]="{ 'is-invalid': nome.errors && isSubmitted }"
+            pattern="\S+ \S+.*"
           />
+          <div
+            *ngIf="nome.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!nome.errors?.['required']">Nome é obrigatório</div>
+            <div [hidden]="!nome.errors?.['pattern']">
+              O nome deve conter pelo menos duas palavras
+            </div>
+          </div>
         </div>
-        <!-- PRECISA CONSERTAR FORMATO DE DATA -->
+
+        <!-- PRECISA CONSERTAR A DATA, ESTÁ COMO TEXT -->
         <div class="col-md-6">
           <label for="data-nascimento" class="p-t-b-10"
             >Data de nascimento<span class="requiredStar">*</span></label
@@ -57,8 +78,18 @@
             [(ngModel)]="editingPerson.nascimento"
             #nascimento="ngModel"
             name="nascimento"
+            required
           />
+          <div
+            *ngIf="nascimento.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!nascimento.errors?.['required']">
+              Data de nascimento é obrigatório
+            </div>
+          </div>
         </div>
+
         <div class="col-md-6">
           <label for="sexo" class="p-t-b-10"
             >Sexo<span class="requiredStar">*</span></label
@@ -67,43 +98,81 @@
             id="sexo"
             class="form-select"
             [(ngModel)]="editingPerson.sexo"
-            #sexo="ngModel"
             name="sexo"
+            #sexo="ngModel"
+            required
           >
-            <option selected>Selecionar...</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-            <option>Outros</option>
+            <option value="" disabled selected>Selecionar...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outros">Outros</option>
           </select>
+          <div
+            *ngIf="sexo.errors && (isSubmitted || sexo.touched)"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!sexo.errors?.['required']">Sexo é obrigatório</div>
+          </div>
         </div>
+
         <div class="col-md-8">
           <label for="email" class="p-t-b-10"
             >E-mail<span class="requiredStar">*</span></label
           >
           <input
-            type="text"
+            type="email"
             id="email"
             class="form-control"
             [(ngModel)]="editingPerson.email"
-            #email="ngModel"
             name="email"
+            #email="ngModel"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            required
           />
+          <div
+            *ngIf="email.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!email.errors?.['required']">
+              Email é obrigatório
+            </div>
+            <div
+              [hidden]="!email.errors?.['touched'] && !email.errors?.['pattern']"
+            >
+              Email inválido
+            </div>
+          </div>
         </div>
+
         <div class="col-md-2">
           <label for="celular" class="p-t-b-10"
             >Celular<span class="requiredStar">*</span></label
           >
           <input
-            type="text"
+            type="tel"
             id="celular"
             class="form-control"
             [(ngModel)]="editingPerson.celular"
-            #celular="ngModel"
             name="celular"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            (input)="formatCellphone($event)"
+            pattern="^\(\d{2}\)\s\d{5}-\d{4}$"
+            #celular="ngModel"
+            required
           />
+          <div
+            *ngIf="celular.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!celular.errors?.['required']">
+              Celular é obrigatório
+            </div>
+            <div [hidden]="!celular.errors?.['pattern']">Celular inválido</div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <div class="col-md-6">
+
+        <div class="col-md-4">
+          <div class="col-md-4">
             <label for="cep" class="p-t-b-10"
               >CEP<span class="requiredStar">*</span></label
             >
@@ -114,7 +183,23 @@
               [(ngModel)]="editingPerson.cep"
               #cep="ngModel"
               name="cep"
+              pattern="\d{5}(-\d{3})?|\d{8}"
+              minlength="8"
+              maxlength="9"
+              required
             />
+            <div
+              *ngIf="cep.errors && (isSubmitted || cep.touched)"
+              class="alert alert-danger validationError"
+            >
+              <div [hidden]="!cep.errors?.['required']">CEP é obrigatório</div>
+              <div [hidden]="!cep.errors?.['pattern']">CEP inválido</div>
+              <div
+                [hidden]="!cep.errors?.['minlength'] || !cep.errors?.['maxlength']"
+              >
+                CEP inválido
+              </div>
+            </div>
           </div>
         </div>
 
@@ -139,8 +224,18 @@
             [(ngModel)]="editingPerson.logradouro"
             #logradouro="ngModel"
             name="logradouro"
+            required
           />
+          <div
+            *ngIf="logradouro.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!logradouro.errors?.['required']">
+              Logradouro é obrigatório
+            </div>
+          </div>
         </div>
+
         <div class="col-md-2">
           <label for="numero" class="p-t-b-10"
             >Número<span class="requiredStar">*</span></label
@@ -152,8 +247,18 @@
             [(ngModel)]="editingPerson.numero"
             #numero="ngModel"
             name="numero"
+            required
           />
+          <div
+            *ngIf="numero.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!numero.errors?.['required']">
+              Número é obrigatório
+            </div>
+          </div>
         </div>
+
         <div class="col-md-2">
           <label for="complemento" class="p-t-b-10">Complemento</label>
           <input
@@ -176,8 +281,18 @@
             [(ngModel)]="editingPerson.bairro"
             #bairro="ngModel"
             name="bairro"
+            required
           />
+          <div
+            *ngIf="bairro.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!bairro.errors?.['required']">
+              Bairro é obrigatório
+            </div>
+          </div>
         </div>
+
         <div class="col-md-4">
           <label for="cidade-res" class="p-t-b-10"
             >Cidade<span class="requiredStar">*</span></label
@@ -189,8 +304,18 @@
             [(ngModel)]="editingPerson.cidade"
             #cidade="ngModel"
             name="cidade-res"
+            required
           />
+          <div
+            *ngIf="cidade.errors && isSubmitted"
+            class="alert alert-danger validationError"
+          >
+            <div [hidden]="!cidade.errors?.['required']">
+              Cidade é obrigatória
+            </div>
+          </div>
         </div>
+
         <div class="col-md-4">
           <label for="estado-res" class="p-t-b-10"
             >Estado<span class="requiredStar">*</span></label
@@ -202,10 +327,27 @@
             [(ngModel)]="editingPerson.estado"
             #estado="ngModel"
             name="estado-res"
+            required
           >
             <option value="">Selecione o Estado</option>
           </select>
+          <div
+          *ngIf="estado.errors && (isSubmitted || estado.touched)"
+          class="alert alert-danger validationError"
+        >
+          <div [hidden]="!estado.errors?.['required']">Estado é obrigatório</div>
         </div>
+        </div>
+
+        <div
+          *ngIf="estado.errors && estado.touched"
+          class="alert alert-danger validationError"
+        >
+          <div [hidden]="!estado.errors?.['required']">
+            Estado é obrigatório
+          </div>
+        </div>
+
         <div class="table-footer">
           <button
             class="btn btn-success"
@@ -215,6 +357,65 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Procurar pelo nome da rua
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <label for="estado" class="form-label">Estado</label>
+          <select id="estado" class="form-select" (change)="carregarCidades()">
+            <option value="">Selecione o Estado</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label for="cidade" class="form-label">Cidade</label>
+          <select id="cidade" class="form-control">
+            <option value="">Aguardando Estado</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label for="rua" class="form-label">Rua:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="rua"
+            (blur)="carregarRuas()"
+          />
+        </div>
+
+        <ul id="lista-ruas"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fechar
+        </button>
+      </div>
     </div>
   </div>
 </div>
